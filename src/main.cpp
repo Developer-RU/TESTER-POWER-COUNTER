@@ -14,6 +14,35 @@ byte cmd4[] = {0x81,0xd2,0xb1,0x82,0x56,0xcf,0xcc,0xd4,0x41,0x28,0xa9,0x03,0x5f}
 /**
  * @brief 
  * 
+ * @param data 
+ */
+void show_data(byte data[], uint8_t datalen)
+{
+    for (uint8_t i = 0; i < datalen; i++)
+    {
+        UART.print(data[i], HEX);
+    }
+
+  UART.println();               
+}
+
+/**
+ * @brief 
+ * 
+ * @param data 
+ */
+void send_data(byte data[], uint8_t datalen)
+{
+    show_data(data, datalen);
+
+    digitalWrite(RS485_RXTX, RS485_WRITE);
+    RS485.write (data, datalen);
+    digitalWrite(RS485_RXTX, RS485_READ);
+}
+
+/**
+ * @brief 
+ * 
  */
 void setup()
 {
@@ -49,37 +78,23 @@ void loop()
         switch (val)
         {
             case 1:
-                digitalWrite(RS485_RXTX, HIGH);
-                RS485.write (cmd1,5);
-                digitalWrite(RS485_RXTX, LOW);
-                
+                send_data(cmd1, sizeof(cmd1));
                 break;
 
             case 2:
-                digitalWrite(RS485_RXTX, HIGH);
-                RS485.write (cmd2,6);
-                digitalWrite(RS485_RXTX, LOW);
-                
+                send_data(cmd2, sizeof(cmd2));
                 break;
 
             case 3:
-                digitalWrite(RS485_RXTX, HIGH);
-                RS485.write (cmd3,13);
-                digitalWrite(RS485_RXTX, LOW);
-                
+                send_data(cmd3, sizeof(cmd3));
                 break;
 
             case 4:
-                digitalWrite(RS485_RXTX, HIGH);
-                RS485.write (cmd4,13);
-                digitalWrite(RS485_RXTX, LOW);
-                
+                send_data(cmd4, sizeof(cmd4));
                 break;
 
             default:
-
                 val = 0;
-
                 break;
         }
     }

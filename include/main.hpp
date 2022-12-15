@@ -9,6 +9,20 @@
 /**
  * @brief 
  * 
+ * @param data 
+ */
+void show_data(byte data[], uint8_t datalen);
+
+/**
+ * @brief 
+ * 
+ * @param data 
+ */
+void send_data(byte data[], uint8_t datalen);
+
+/**
+ * @brief 
+ * 
  */
 void setup(void);
 

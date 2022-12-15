@@ -32,5 +32,4 @@
 #define RS485_READ                  0
 
 
-
 #endif
