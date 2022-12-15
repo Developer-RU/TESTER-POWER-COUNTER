@@ -1,17 +1,4 @@
-#include "Arduino.h"
-
-
-#define UART                        Serial
-#define UART_BAUNDRATE              115200
-
-#define RS485                       Serial2
-#define RS485_BAUNDRATE             9600
-#define RS485_RX                    34
-#define RS485_TX                    4
-#define RS485_RXTX                  17
-
-#define RS485_WRITE                 1
-#define RS485_READ                  0
+#include "main.hpp"
 
 
 long Previous = 0; 
