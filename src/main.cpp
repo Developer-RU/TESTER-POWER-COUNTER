@@ -21,6 +21,7 @@ void show_data(byte data[], uint8_t datalen)
     for (uint8_t i = 0; i < datalen; i++)
     {
         UART.print(data[i], HEX);
+        UART.print(" ");
     }
 
   UART.println();               
@@ -51,7 +52,7 @@ void setup()
     pinMode(RS485_RXTX, OUTPUT);
     digitalWrite(RS485_RXTX, RS485_WRITE);
 
-    RS485.begin(RS485_BAUNDRATE, SERIAL_7E1, RS485_RX, RS485_TX);
+    RS485.begin(RS485_BAUNDRATE, SERIAL_8N1, RS485_RX, RS485_TX);
     RS485.flush();
 
     digitalWrite(RS485_RXTX, RS485_READ);
@@ -65,9 +66,19 @@ void loop()
 { 
     if (RS485.available())
     {
-        char response = RS485.read();
-        // response &= 0x7F;// convert 8N1 to 7E1
-        UART.print(response);
+        delay(150);
+
+        while (RS485.available())
+        {
+            char response = RS485.read();
+            response &= 0x7F;// convert 8N1 to 7E1
+
+            // UART.print(response);
+            // или
+            UART.print(response, HEX);
+        }  
+
+        UART.println();               
     }
     
     if (millis() - Previous >= 1000)
