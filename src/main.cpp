@@ -18,6 +18,8 @@ byte cmd4[] = {0x81,0xd2,0xb1,0x82,0x56,0xcf,0xcc,0xd4,0x41,0x28,0xa9,0x03,0x5f}
  */
 void show_data(byte data[], uint8_t datalen)
 {
+    UART.print("Request  >>> ");
+    
     for (uint8_t i = 0; i < datalen; i++)
     {
         UART.print(data[i], HEX);
@@ -67,6 +69,8 @@ void loop()
     if (RS485.available())
     {
         delay(150);
+
+        UART.print("Response <<< ");
 
         while (RS485.available())
         {
